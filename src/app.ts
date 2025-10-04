@@ -3,6 +3,8 @@ import cors from 'cors';
 import session from 'express-session';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '@prisma/client'
 
 
 /*import testRoutes from './router/test.Router';
@@ -45,6 +47,11 @@ app.use(session({
   }
 }));
 
+
+const connectionString = `${process.env.DATABASE_URL}`
+
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
 /*app.use('/api/test', testRoutes);
 app.use('/api/auth', authRouter);
 app.use('/api/game', gameRouter);*/
