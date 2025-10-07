@@ -1,15 +1,12 @@
-export class UserRepository{
+import { User, Prisma } from "../prisma/src/prisma";
+import { createBaseRepository } from "./base.repository";
+import { prisma } from "../lib/prisma";
 
-    constructor() {
-        
-    }
-
-    getUserByName(userName:string) : User {
-        const user: User = db.users.get({
-            where:{
-                name: userName
-            }
-        })
-        return user;
-    }
+export const userRepository = {
+    ...createBaseRepository<
+    User,
+    Prisma.UserCreateInput,
+    Prisma.UserUpdateInput,
+    Prisma.UserWhereUniqueInput>
+    (prisma.user),
 }
