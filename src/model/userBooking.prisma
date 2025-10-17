@@ -1,0 +1,8 @@
+model UserBooking {
+    userId Int 
+    bookingId Int
+    User User @relation(fields: [userId], references: [id])
+    Booking Booking @relation(fields: [bookingId], references: [id])
+
+    @@id([userId, bookingId])
+}

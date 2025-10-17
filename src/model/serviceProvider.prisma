@@ -1,0 +1,11 @@
+model serviceProvider {
+    id Int @id @default(autoincrement())
+    name String
+    adress String
+    cover_image String
+    description String @db.VarChar(200)
+    phone Int
+    email String @unique
+
+    UserServiceProvider userServiceProvider[]
+}

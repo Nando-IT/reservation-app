@@ -7,7 +7,40 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgres://postgres:password@localhost:5432/reservation_app"
+}
+
+model Booking {
+    id Int @id @default(autoincrement())
+    User User @relation(fields: [userId], references: [id])
+    userId Int
+    Service Service @relation(fields: [serviceId], references: [id])
+    serviceId Int
+    from DateTime
+    to DateTime
+
+    @@unique([serviceId, from, to])
+    UserBookings UserBooking[]
+}
+
+model Service {
+    id Int @id @default(autoincrement())
+    name String
+    price Int
+    duration Int
+    Bookings Booking[]
+}
+
+model serviceProvider {
+    id Int @id @default(autoincrement())
+    name String
+    adress String
+    cover_image String
+    description String @db.VarChar(200)
+    phone Int
+    email String @unique
+
+    UserServiceProvider userServiceProvider[]
 }
 
 model User{
@@ -15,4 +48,27 @@ model User{
     email String @unique
     firstName String
     lastName String
+    userName String
+
+    Bookings Booking[]
+    UserBookings UserBooking[]
+    UserServiceProvider userServiceProvider[]
+}
+
+model UserBooking {
+    userId Int 
+    bookingId Int
+    User User @relation(fields: [userId], references: [id])
+    Booking Booking @relation(fields: [bookingId], references: [id])
+
+    @@id([userId, bookingId])
+}
+
+model userServiceProvider {
+    userId Int
+    serviceProviderId Int
+    User User @relation(fields: [userId], references: [id])
+    ServiceProvider serviceProvider @relation(fields: [serviceProviderId], references: [id]) 
+
+    @@id([userId,serviceProviderId])
 }

@@ -3,4 +3,9 @@ model User{
     email String @unique
     firstName String
     lastName String
+    userName String
+
+    Bookings Booking[]
+    UserBookings UserBooking[]
+    UserServiceProvider userServiceProvider[]
 }

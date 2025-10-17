@@ -1,0 +1,8 @@
+model userServiceProvider {
+    userId Int
+    serviceProviderId Int
+    User User @relation(fields: [userId], references: [id])
+    ServiceProvider serviceProvider @relation(fields: [serviceProviderId], references: [id]) 
+
+    @@id([userId,serviceProviderId])
+}
