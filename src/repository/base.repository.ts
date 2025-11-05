@@ -37,7 +37,10 @@ export const createBaseRepository =
         > => ({
             findMany: () => model.findMany(),
             findByUnique: (where: WhereUniqueInput) => model.findUnique({ where }),
-            create: (data: CreateInput) => model.create({ data }),
+            create: (data: CreateInput) => {
+
+                return model.create({ data })
+            },
             update: (where: WhereUniqueInput, data: UpdateInput) => model.update({ where, data }),
             delete: (where: WhereUniqueInput) => model.delete({ where }),
         }) 

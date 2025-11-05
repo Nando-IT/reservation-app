@@ -1,3 +1,4 @@
+import { BaseCreateDto } from "../dto/baseCreate.dto";
 import { BaseRepository } from "../repository/base.repository";
 import { BaseEntity } from "../types/baseEntity.type";
 
@@ -14,6 +15,7 @@ export type BaseService<Entity,
 }
 
 export const createBaseService = <Entity extends BaseEntity,
+    CreateDto extends BaseCreateDto,
     CreateInput,
     UpdateInput,
     WhereUniqueInput
@@ -21,13 +23,13 @@ export const createBaseService = <Entity extends BaseEntity,
     CreateInput,
     UpdateInput,
     WhereUniqueInput
->) : BaseService<Entity,
-    CreateInput,
+>,mapper:) : BaseService<Entity,
+    CreateDto,
     UpdateInput,
     WhereUniqueInput> => ({
     findMany: () => repository.findMany(),
     findByUnique: (where: WhereUniqueInput) => repository.findByUnique(where),
-    create: (data: CreateInput) => repository.create(data),
+    create: (data: CreateDto) => repository.create(data),
     update: (where: WhereUniqueInput, data: UpdateInput) => repository.update(where, data),
     delete: (where: WhereUniqueInput) => repository.delete(where),
 })

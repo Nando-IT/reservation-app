@@ -4,9 +4,14 @@ import { prisma } from "../lib/prisma";
 
 export const userRepository = {
     ...createBaseRepository<
-    User,
-    Prisma.UserCreateInput,
-    Prisma.UserUpdateInput,
-    Prisma.UserWhereUniqueInput>
-    (prisma.user),
+        User,
+        Prisma.UserCreateInput,
+        Prisma.UserUpdateInput,
+        Prisma.UserWhereUniqueInput>
+        (prisma.user),
+    creat(user: User) {
+        prisma.user.create({
+            data: user
+        })
+    }
 }
